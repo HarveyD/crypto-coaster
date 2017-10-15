@@ -71,6 +71,18 @@ html, body {
     transform: rotate(0deg);
 }
 
+.up-diagonal {
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+}
+
+.down-diagonal {
+    -ms-transform: rotate(135deg); /* IE 9 */
+    -webkit-transform: rotate(135); /* Chrome, Safari, Opera */
+    transform: rotate(135);
+}
+
 .down {
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */

@@ -27,6 +27,7 @@ class Bitcoin extends Coin {
     constructor() {
         super();
         this.imgUrl = 'btc-coaster.gif';
+        this.uptrend = true;
         this.yesterdayPrice = 0;
         this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=${new Date().getTime() - 86400000}`;
     }
@@ -36,6 +37,7 @@ class Ether extends Coin {
     constructor() {
         super();
         this.imgUrl = 'eth-coaster.gif';
+        this.uptrend = true;
         this.yesterdayPrice = 0;
         this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=USD&ts=${new Date().getTime() - 86400000}`;
     }
@@ -133,8 +135,10 @@ class Ether extends Coin {
         
         if (yesterdayDelta >= 0 ) {
             $('#yesterday-price').append(`(&#8593; $${Math.abs(yesterdayDelta)}`);
+            currentCoin.uptrend = true;
         } else {
             $('#yesterday-price').append(`(&#8595; $${Math.abs(yesterdayDelta)})`);
+            currentCoin.uptrend = false;
         }
         
         if (currentCoin.yesterdayPrice >= currentCoin.price) {
@@ -153,22 +157,34 @@ class Ether extends Coin {
     
     let priceIncrease = function (delta) {
         colorText(Constants.Green);
-        changeDirection('up');
+
+        if (currentCoin.uptrend) {
+            changeDirection('up');
+        } else {
+            changeDirection('up-diagonal');
+        }
     
         $('#delta').html(`(&#8593; $${delta})`);
     }
     
     let priceDecrease = function(delta) {
         colorText(Constants.Red);
-        changeDirection('down');
+
+        if (currentCoin.uptrend) {
+            changeDirection('down-diagonal');
+        } else {
+            changeDirection('down');
+        }
     
         $('#delta').html(`(&#8595; $${delta})`);
     }
 
     changeDirection = function(direction) {
         $('#coaster').removeClass('up');
+        $('#coaster').removeClass('up-diagonal');
         $('#coaster').removeClass('sideways');
         $('#coaster').removeClass('down');
+        $('#coaster').removeClass('down-diagonal');
  
         $('#coaster').addClass(direction);
     }
