@@ -1,0 +1,51 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>BTC Coaster</title>
+  <meta name="description" content="BTC Coaster">
+  <meta name="author" content="Harvey Delaney">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div class="heading-container absolute-center">
+        <div class="last-price-container">
+            <span> Last Price: </span>
+            <span id="price"> </span> 
+        </div>
+
+        <div>
+            <span id="delta"> (&#8593; $6) </span>
+        </div>
+
+        <div>
+            <span> Updating in: </span>
+            <span id="countdown"> 15 </span>
+            <span> seconds </span>
+        </div>
+    </div>
+
+    <div class="details absolute-center">
+    </div>
+
+    <div class="btc-coaster-container absolute-center">
+        <img id="coaster" class="up" src="./coaster.gif"/>
+    </div>
+
+    <div class="footer">
+        <button class="btc-button"> Bitcoin </button>
+        <button class="eth-button"> Ethereum </button>
+    </div>
+  <script src="./scripts.js"></script>
+</body>
+</html>
