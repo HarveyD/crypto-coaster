@@ -17,22 +17,22 @@ html, body {
 .heading-container {
     height: 20%;
     flex-direction: column;
+    color: white;
 }
 
 .last-price-container span {
     font-size: 64px;
-    color: white;
 }
 
 .last-price-container #price {
     color: green;
+    display: inline-block;
 }
 
 #price .grow {
-    display: inline-block;
-    animation: grow-then-shrink 1s infinite alternate;
+    /* animation: grow-then-shrink 1s infinite alternate; */
     /*  */
-    /* animation: grow-then-shrink 1s normal forwards ease-in-out; */
+    animation: grow-then-shrink 1s normal forwards ease-in-out;
 }
 
 #countdown {
@@ -68,6 +68,12 @@ html, body {
     transform: rotate(180deg);
 }
 
+.sideways {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
+
 .footer {
     height: 10%;
     width: 100%;
@@ -83,11 +89,11 @@ html, body {
     border: none;
 }
 
-.btc-button {
+#btc-button {
     background-color: #FF9900;
 }
 
-.eth-button {
+#eth-button {
     background-color: #93a1c6;
 }
 

@@ -1,73 +1,137 @@
 class Constants {
     static get Countdown() {
-        return 60;
+        return 25;
     }
 
     static get ApiUrl() {
-        return 'https://api.coindesk.com/v1/bpi/currentprice.json';
+        return 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,BTC&tsyms=USD';
     }
 }
 
-let lastPrice = 0;
-let countDown = Constants.Countdown;
+class Coin {
+    constructor() {
+        this.price = 0;
+        this.lastPrice = 0;
+    }
+}
 
-$(document).ready(() => {
-    poll();
-});
+class Bitcoin extends Coin {
+    constructor() {
+        super();
+        this.imgUrl = 'btc-coaster.gif';
+    }
+}
 
-let countdown = function() {
-    countDown -= 1;
-    $('#countdown').text(countDown);
+class Ether extends Coin {
+    constructor() {
+        super();
+        this.imgUrl = 'eth-coaster.gif';
+    }
+}
 
-    if (countDown <= -1 ) {
-        countDown = Constants.Countdown;
+(function init() {
+    let ether = new Ether();
+    let bitcoin = new Bitcoin(); 
+
+    let currentCoin = bitcoin;
+    
+    let coinDict = {
+        'ETH': ether,
+        'BTC': bitcoin
+    };
+    
+    let pollCount = Constants.Countdown;
+    
+    $(document).ready(() => {
+        switchCoin(bitcoin);
         poll();
-        return;
+    });
+
+    let switchCoin = function(coin) {
+        $("#coaster").attr("src", coin.imgUrl);
+        currentCoin = coin;
+        updatePrice();
+    }
+    
+    let countDown = function() {
+        pollCount -= 1;
+        $('#countdown').text(pollCount);
+    
+        if (pollCount <= 0 ) {
+            pollCount = Constants.Countdown;
+            poll();
+            return;
+        }
+    
+        setTimeout(() => {
+            countDown();
+        }, 1000);
+    }
+    
+    let poll = () => {
+        $.ajax({url: Constants.ApiUrl, success: (result) => {
+            Object.keys(result).forEach(coin => {
+                let selectedCoin = coinDict[coin];
+                if (selectedCoin) {
+                    selectedCoin.lastPrice = selectedCoin.price
+                    selectedCoin.price = Math.round(result[coin].USD * 100) / 100;
+                }
+            });
+    
+            updatePrice();
+            countDown();
+        }});
+    }
+    
+    let updatePrice = function() {
+        const price = currentCoin.price;
+        const lastPrice = currentCoin.lastPrice;
+
+        $('#price').text(`$${price} USD`);
+
+        const delta = Math.round(Math.abs(price - lastPrice)*100) / 100;
+
+        if (lastPrice === price || price === 0 || price === delta ) {
+            priceStable();
+        } else if (lastPrice < price) {
+            priceDecrease(delta);
+        } else {
+            priceIncrease(delta);
+        }
     }
 
-    setTimeout(() => {
-        countdown();
-    }, 1000);
-}
-
-let poll = () => {
-    $.ajax({url: 'https://api.coindesk.com/v1/bpi/currentprice.json', success: (result) => {
-        const res = JSON.parse(result);
-        const priceString = res.bpi.USD.rate.replace(',', '');
-        const price = parseInt(priceString, 10);
-
-        updatePrice(price);
-        countdown();
-    }});
-}
-
-let updatePrice = function(price) {
-    $('#price').text(`$${price} USD`);
-    $('#price').addClass('grow');
-    const delta = Math.abs(price - lastPrice);
-
-    if(lastPrice === price ) {
-    } else if (lastPrice < price) {
-        priceDecrease(delta);
-    } else {
-        priceIncrease(delta);
+    let priceStable = function() {
+        $('#price').css('color', 'grey');
+        $('#coaster').removeClass('up');
+        $('#coaster').removeClass('down');
+        $('#coaster').addClass('sideways');
+        
+        $('#delta').html(`(&#8594; $0)`);
+    }
+    
+    let priceIncrease = function (delta) {
+        $('#price').css('color', 'green');
+        $('#coaster').removeClass('down');
+        $('#coaster').removeClass('sideways');
+        $('#coaster').addClass('up');
+    
+        $('#delta').html(`(&#8593; $${delta})`);
+    }
+    
+    let priceDecrease = function(delta) {
+        $('#price').css('color', 'red');
+        $('#coaster').removeClass('up');
+        $('#coaster').removeClass('sideways');
+        $('#coaster').addClass('down');
+    
+        $('#delta').html(`(&#8595; $${delta})`);
     }
 
-    lastPrice = price;
-}
+    $("#btc-button").click(function() {
+        switchCoin(bitcoin);
+      });
 
-let priceIncrease = function (delta) {
-    $('#price').css('color', 'green');
-    $('#coaster').removeClass('down');
-    $('#coaster').addClass('up');
-
-    $('#delta').html(`(&#8593; $${delta})`);
-}
-
-let priceDecrease = function(delta) {
-    $('#price').css('color', 'red');
-    $('#coaster').removeClass('up');
-    $('#coaster').addClass('down');
-
-    $('#delta').html(`(&#8595; $${delta})`);
-}
+    $("#eth-button").click(function() {
+        switchCoin(ether);
+    });
+}());
