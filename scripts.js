@@ -104,6 +104,7 @@ class Ether extends Coin {
 
     let priceStable = function() {
         $('#price').css('color', 'grey');
+        $('#delta').css('color', 'grey');
         $('#coaster').removeClass('up');
         $('#coaster').removeClass('down');
         $('#coaster').addClass('sideways');
@@ -113,6 +114,7 @@ class Ether extends Coin {
     
     let priceIncrease = function (delta) {
         $('#price').css('color', 'green');
+        $('#delta').css('color', 'green');
         $('#coaster').removeClass('down');
         $('#coaster').removeClass('sideways');
         $('#coaster').addClass('up');
@@ -122,6 +124,7 @@ class Ether extends Coin {
     
     let priceDecrease = function(delta) {
         $('#price').css('color', 'red');
+        $('#delta').css('color', 'red');
         $('#coaster').removeClass('up');
         $('#coaster').removeClass('sideways');
         $('#coaster').addClass('down');
