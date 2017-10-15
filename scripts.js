@@ -1,6 +1,6 @@
 class Constants {
     static get Countdown() {
-        return 30;
+        return 15;
     }
 
     static get ApiUrl() {
