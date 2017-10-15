@@ -19,6 +19,9 @@ html, body {
     height: 20%;
     flex-direction: column;
     color: white;
+    background-color: rgb(195, 164, 157);
+    position: relative;
+    z-index: 999;
 }
 
 .last-price-container span {
@@ -26,7 +29,7 @@ html, body {
 }
 
 .last-price-container #price {
-    color: green;
+    color: rgb(74, 134, 119);
     display: inline-block;
 }
 
@@ -41,8 +44,14 @@ html, body {
 
 #delta {
     font-size: 24px;
+    padding-left: 16px;
 }
 
+#yesterday {
+    font-size: 24px;
+    padding-bottom: 6px;
+}
+ 
 .btc-coaster-container {
     height: 70%;
     width: 100%;
@@ -75,6 +84,8 @@ html, body {
 }
 
 .footer {
+    position: relative;
+    z-index: 999;
     height: 10%;
     width: 100%;
     display: flex;
@@ -90,14 +101,28 @@ html, body {
     background-color: grey;
     outline: none;
     transition: background-color 0.5s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer button img {
+    height: 32px;
 }
 
 .selected-btc {
-    background-color: #FF9900!important;
+    background-color: #FF9900;
+    animation: btc-glow 5s;
+    -moz-animation: btc-glow 5s infinite; /* Firefox */
+    -webkit-animation: btc-glow 5s infinite; /* Safari and Chrome */
 }
 
 .selected-eth {
-    background-color: #93a1c6!important;
+    background-color: #93a1c6;
+    animation: eth-glow 5s;
+    -moz-animation: eth-glow 5s infinite; /* Firefox */
+    -webkit-animation: eth-glow 5s infinite; /* Safari and Chrome */
 }
 
 @keyframes grow-then-shrink {
@@ -106,9 +131,26 @@ html, body {
 	100% { transform: none; }
 }
 
+@keyframes btc-glow {
+	0% { background-color: #FF9900; }
+	50% { background-color: #F5CE1D; }
+	100% { background-color: #FF9900; }
+}
+
+@keyframes eth-glow {
+	0% { background-color: #93a1c6; }
+	50% { background-color: #516BB1; }
+	100% { background-color: #93a1c6; }
+}
+
 @media screen and (max-width: 780px) {
     .last-price-container span {
-        font-size: 32px;
+        font-size: 36px;
         color: white;
+    }
+
+    #yesterday {
+        font-size: 18px;
+        padding-bottom: 6px;
     }
 }

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>BTC Coaster</title>
+  <title> Crypto Coaster </title>
   <meta name="description" content="BTC Coaster">
   <meta name="author" content="Harvey Delaney">
 
@@ -20,17 +20,19 @@
 
 <body>
     <div class="heading-container absolute-center">
-        <div class="last-price-container">
+        <div class="last-price-container absolute-center">
             <span id="price"> </span> 
+            <span id="delta"> (&#8593; $0) </span>
         </div>
 
-        <div id="delta"> 
-            (&#8593; $6)
+        <div id="yesterday">
+            <span> Yesterday: </span>
+            <span id="yesterday-price"> </span>
         </div>
 
         <div>
             <span> Updating in: </span>
-            <span id="countdown"> 15 </span>
+            <span id="countdown"> 30 </span>
             <span> seconds </span>
         </div>
     </div>
@@ -43,8 +45,8 @@
     </div>
 
     <div class="footer">
-        <button id="btc-button" class="selected-btc"> Bitcoin </button>
-        <button id="eth-button"> Ether </button>
+        <button id="btc-button" class="selected-btc"> <img src="./bitcoin-logo.svg"></img> Bitcoin </button>
+        <button id="eth-button"> <img src="./ether-logo.svg"></img> Ether </button>
     </div>
   <script src="./scripts.js"></script>
 </body>
