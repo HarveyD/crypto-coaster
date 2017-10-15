@@ -49,6 +49,7 @@ html, body {
 }
 
 #coaster {
+    height: 100%;
     transition: 2s ease-in-out;
     -webkit-transition: 2s ease-in-out;
     -moz-transition: 2s ease-in-out;
