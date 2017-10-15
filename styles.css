@@ -96,3 +96,10 @@ html, body {
 	50% { transform: scale(1.2); }
 	100% { transform: none; }
 }
+
+@media screen and (max-width: 720px) {
+    .last-price-container span {
+        font-size: 32px;
+        color: white;
+    }
+}
