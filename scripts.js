@@ -1,6 +1,6 @@
 class Constants {
     static get Countdown() {
-        return 25;
+        return 30;
     }
 
     static get ApiUrl() {
@@ -58,6 +58,8 @@ class Ether extends Coin {
         $('#countdown').text(pollCount);
     
         if (pollCount <= 0 ) {
+            $('#price').addClass('grow');
+            setTimeout(() => { $('#price').removeClass('grow'); }, 2000);
             pollCount = Constants.Countdown;
             poll();
             return;
@@ -129,9 +131,13 @@ class Ether extends Coin {
 
     $("#btc-button").click(function() {
         switchCoin(bitcoin);
-      });
+        $('#eth-button').removeClass('selected-eth');
+        $('#btc-button').addClass('selected-btc');
+    });
 
     $("#eth-button").click(function() {
         switchCoin(ether);
+        $('#eth-button').addClass('selected-eth');
+        $('#btc-button').removeClass('selected-btc');
     });
 }());

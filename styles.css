@@ -4,6 +4,7 @@ html, body {
     background-color: rgb(195, 164, 157);
     padding: 0px;
     margin: 0px;
+    overflow: hidden; 
 
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -29,9 +30,7 @@ html, body {
     display: inline-block;
 }
 
-#price .grow {
-    /* animation: grow-then-shrink 1s infinite alternate; */
-    /*  */
+.grow {
     animation: grow-then-shrink 1s normal forwards ease-in-out;
 }
 
@@ -87,23 +86,26 @@ html, body {
     font-size: 32px;
     color: white;
     border: none;
+    background-color: grey;
+    outline: none;
+    transition: background-color 0.5s ease;
 }
 
-#btc-button {
-    background-color: #FF9900;
+.selected-btc {
+    background-color: #FF9900!important;
 }
 
-#eth-button {
-    background-color: #93a1c6;
+.selected-eth {
+    background-color: #93a1c6!important;
 }
 
 @keyframes grow-then-shrink {
 	0% { transform: none; }
-	50% { transform: scale(1.2); }
+	50% { transform: scale(1.35); }
 	100% { transform: none; }
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 780px) {
     .last-price-container span {
         font-size: 32px;
         color: white;
