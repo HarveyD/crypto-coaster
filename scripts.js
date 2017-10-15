@@ -20,6 +20,8 @@ class Coin {
     constructor() {
         this.price = 0;
         this.lastPrice = 0;
+        this.yesterdayPrice = 0;
+        this.uptrend = true;
     }
 }
 
@@ -27,8 +29,6 @@ class Bitcoin extends Coin {
     constructor() {
         super();
         this.imgUrl = 'btc-coaster.gif';
-        this.uptrend = true;
-        this.yesterdayPrice = 0;
         this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=${new Date().getTime() - 86400000}`;
     }
 }
@@ -37,8 +37,6 @@ class Ether extends Coin {
     constructor() {
         super();
         this.imgUrl = 'eth-coaster.gif';
-        this.uptrend = true;
-        this.yesterdayPrice = 0;
         this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=USD&ts=${new Date().getTime() - 86400000}`;
     }
 }
@@ -121,30 +119,25 @@ class Ether extends Coin {
 
         if (lastPrice === price || price === 0 || price === delta ) {
             priceStable();
-        } else if (lastPrice < price) {
-            priceDecrease(delta);
-        } else {
+        } else if (price > lastPrice) {
             priceIncrease(delta);
+        } else {
+            priceDecrease(delta);
         }
     }
 
     let updateYesterdayPrice = function() {
         $('#yesterday-price').text(`$${currentCoin.yesterdayPrice} USD `);
 
-        let yesterdayDelta = Math.round((currentCoin.price - currentCoin.yesterdayPrice) * 100) / 100;
-        
-        if (yesterdayDelta >= 0 ) {
-            $('#yesterday-price').append(`(&#8593; $${Math.abs(yesterdayDelta)}`);
+        const yesterdayDelta = Math.round((currentCoin.price - currentCoin.yesterdayPrice) * 100) / 100;
+        if (currentCoin.price >= currentCoin.yesterdayPrice) {
+            $('#yesterday-price').css('color', Constants.Green);
+            $('#yesterday-price').append(`(&#8593; $${Math.abs(yesterdayDelta)})`);
             currentCoin.uptrend = true;
         } else {
+            $('#yesterday-price').css('color', Constants.Red);
             $('#yesterday-price').append(`(&#8595; $${Math.abs(yesterdayDelta)})`);
             currentCoin.uptrend = false;
-        }
-        
-        if (currentCoin.yesterdayPrice >= currentCoin.price) {
-            $('#yesterday-price').css('color', Constants.Red);
-        } else {
-            $('#yesterday-price').css('color', Constants.Green);
         }
     }
 
