@@ -4,7 +4,7 @@ class Constants {
     }
 
     static get ApiUrl() {
-        return 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,BTC&tsyms=USD';
+        return 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,BTC,LTC&tsyms=USD';
     }
 
     static get Green() {
@@ -13,6 +13,10 @@ class Constants {
 
     static get Red() {
         return 'rgb(120, 72, 61)';
+    }
+
+    static get OneDay() {
+        return 86400000;
     }
 }
 
@@ -28,28 +32,50 @@ class Coin {
 class Bitcoin extends Coin {
     constructor() {
         super();
-        this.imgUrl = 'btc-coaster.gif';
-        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=${new Date().getTime() - 86400000}`;
+        this.imgUrl = 'assets/btc-coaster.gif';
+        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=${new Date().getTime() - Constants.OneDay}`;
+    }
+
+    selectCoin() {
+        $('#btc-button').addClass('selected-btc');
     }
 }
 
 class Ether extends Coin {
     constructor() {
         super();
-        this.imgUrl = 'eth-coaster.gif';
-        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=USD&ts=${new Date().getTime() - 86400000}`;
+        this.imgUrl = 'assets/eth-coaster.gif';
+        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=USD&ts=${new Date().getTime() - Constants.OneDay}`;
+    }
+
+    selectCoin() {
+        $('#eth-button').addClass('selected-eth');
+    }
+}
+
+class Litecoin extends Coin {
+    constructor() {
+        super();
+        this.imgUrl = 'assets/ltc-coaster.gif';
+        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=LTC&tsyms=USD&ts=${new Date().getTime() - Constants.OneDay}`;
+    }
+
+    selectCoin() {
+        $('#ltc-button').addClass('selected-ltc');
     }
 }
 
 (function init() {
     let ether = new Ether();
     let bitcoin = new Bitcoin(); 
+    let litecoin = new Litecoin();
 
     let currentCoin = bitcoin;
     
     let coinDict = {
         'ETH': ether,
-        'BTC': bitcoin
+        'BTC': bitcoin,
+        'LTC': litecoin
     };
     
     let pollCount = Constants.Countdown;
@@ -70,6 +96,12 @@ class Ether extends Coin {
     }
 
     let switchCoin = function(coin) {
+        $('#ltc-button').removeClass('selected-ltc');
+        $('#btc-button').removeClass('selected-btc');
+        $('#eth-button').removeClass('selected-eth');
+
+        coin.selectCoin();
+
         $("#coaster").attr("src", coin.imgUrl);
         currentCoin = coin;
         updatePrice();
@@ -189,13 +221,13 @@ class Ether extends Coin {
 
     $("#btc-button").click(function() {
         switchCoin(bitcoin);
-        $('#eth-button').removeClass('selected-eth');
-        $('#btc-button').addClass('selected-btc');
     });
 
     $("#eth-button").click(function() {
         switchCoin(ether);
-        $('#eth-button').addClass('selected-eth');
-        $('#btc-button').removeClass('selected-btc');
+    });
+
+    $("#ltc-button").click(function() {
+        switchCoin(litecoin);
     });
 }());

@@ -77,6 +77,12 @@ html, body {
     transform: rotate(45deg);
 }
 
+.sideways {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+}
+
 .down-diagonal {
     -ms-transform: rotate(135deg); /* IE 9 */
     -webkit-transform: rotate(135deg); /* Chrome, Safari, Opera */
@@ -87,12 +93,6 @@ html, body {
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
-}
-
-.sideways {
-    -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-    transform: rotate(90deg);
 }
 
 .footer {
@@ -137,6 +137,13 @@ html, body {
     -webkit-animation: eth-glow 5s infinite; /* Safari and Chrome */
 }
 
+.selected-ltc {
+    background-color: #636467;
+    animation: ltc-glow 5s;
+    -moz-animation: ltc-glow 5s infinite; /* Firefox */
+    -webkit-animation: ltc-glow 5s infinite; /* Safari and Chrome */
+}
+
 @keyframes grow-then-shrink {
 	0% { transform: none; }
 	50% { transform: scale(1.35); }
@@ -153,6 +160,12 @@ html, body {
 	0% { background-color: #93a1c6; }
 	50% { background-color: #516BB1; }
 	100% { background-color: #93a1c6; }
+}
+
+@keyframes ltc-glow {
+	0% { background-color: #636467; }
+	50% { background-color: #A6A9AF; }
+	100% { background-color: #636467; }
 }
 
 @media screen and (max-width: 780px) {
