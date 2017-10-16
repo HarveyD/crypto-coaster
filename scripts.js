@@ -125,9 +125,16 @@ class Litecoin extends Coin {
                 processCoin.lastPrice = processCoin.price
                 processCoin.price = update.PRICE;
                 processCoin.lastUpdated = -1;
+
+                $('#price').addClass('grow');
+                setTimeout(() => { $('#price').removeClass('grow'); }, 1000);
             }
 
             if (update.OPENHOUR){
+                // if (processCoin.yesterdayPrice === 0 ) {
+                //     initRotate(update.OPENHOUR);
+                // }
+
                 processCoin.yesterdayPrice = update.OPENHOUR;
             }
 

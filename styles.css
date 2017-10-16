@@ -34,7 +34,7 @@ html, body {
 }
 
 .grow {
-    animation: grow-then-shrink 1s normal forwards ease-in-out;
+    animation: grow-then-shrink 0.5s normal forwards ease-in-out;
 }
 
 #countdown {
@@ -146,7 +146,7 @@ html, body {
 
 @keyframes grow-then-shrink {
 	0% { transform: none; }
-	50% { transform: scale(1.35); }
+	50% { transform: scale(1.25); }
 	100% { transform: none; }
 }
 
