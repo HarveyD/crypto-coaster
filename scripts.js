@@ -1,22 +1,10 @@
 class Constants {
-    static get Countdown() {
-        return 15;
-    }
-
-    static get ApiUrl() {
-        return 'https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,BTC,LTC&tsyms=USD';
-    }
-
     static get Green() {
         return 'rgb(74, 134, 119)';
     }
 
     static get Red() {
         return 'rgb(120, 72, 61)';
-    }
-
-    static get OneDay() {
-        return 86400000;
     }
 }
 
@@ -26,42 +14,47 @@ class Coin {
         this.lastPrice = 0;
         this.yesterdayPrice = 0;
         this.uptrend = true;
+        this.lastUpdated = 0;
+        this.rotateValue = 90;
     }
 }
 
 class Bitcoin extends Coin {
     constructor() {
         super();
+        this.buttonId = 'btc-button';
+        this.selectedClass = 'selected-btc';
         this.imgUrl = 'assets/btc-coaster.gif';
-        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=USD&ts=${new Date().getTime() - Constants.OneDay}`;
     }
 
     selectCoin() {
-        $('#btc-button').addClass('selected-btc');
+        $(`#${this.buttonId}`).addClass(`${this.selectedClass}`);
     }
 }
 
 class Ether extends Coin {
     constructor() {
         super();
+        this.buttonId = 'eth-button';
+        this.selectedClass = 'selected-eth';
         this.imgUrl = 'assets/eth-coaster.gif';
-        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=USD&ts=${new Date().getTime() - Constants.OneDay}`;
     }
 
     selectCoin() {
-        $('#eth-button').addClass('selected-eth');
+        $(`#${this.buttonId}`).addClass(`${this.selectedClass}`);
     }
 }
 
 class Litecoin extends Coin {
     constructor() {
         super();
+        this.buttonId = 'ltc-button';
+        this.selectedClass = 'selected-ltc';
         this.imgUrl = 'assets/ltc-coaster.gif';
-        this.yesterdayPriceUrl = `https://min-api.cryptocompare.com/data/pricehistorical?fsym=LTC&tsyms=USD&ts=${new Date().getTime() - Constants.OneDay}`;
     }
 
     selectCoin() {
-        $('#ltc-button').addClass('selected-ltc');
+        $(`#${this.buttonId}`).addClass(this.selectedClass);
     }
 }
 
@@ -78,65 +71,85 @@ class Litecoin extends Coin {
         'LTC': litecoin
     };
     
-    let pollCount = Constants.Countdown;
-    
     $(document).ready(() => {
-        yesterdayPrice();
+        timerTick();
+        initSocket();
+
+        Object.keys(coinDict).forEach(coin => {
+            initCoin(coinDict[coin]);
+        });
         
         switchCoin(bitcoin);
-        poll();
     });
 
-    let yesterdayPrice = function() {
-        Object.keys(coinDict).forEach(c => {
-            $.ajax({url: coinDict[c].yesterdayPriceUrl, success: (result) => {
-                coinDict[c].yesterdayPrice = result[c].USD;
-            }});
+    let timerTick = function() {
+        setInterval(() => {
+            Object.keys(coinDict).forEach(c => {
+                coinDict[c].lastUpdated += 1;
+            });
+
+            $('#countdown').text(currentCoin.lastUpdated);
+        }, 1000);
+    }
+
+    let initSocket = function() {
+        var socket = io.connect('https://streamer.cryptocompare.com/');
+        
+        //Format: {SubscriptionId}~{ExchangeName}~{FromSymbol}~{ToSymbol}
+        //Use SubscriptionId 0 for TRADE, 2 for CURRENT and 5 for CURRENTAGG
+        //For aggregate quote updates use CCCAGG as market
+        var subscription = ['5~CCCAGG~BTC~USD','5~CCCAGG~ETH~USD', '5~CCCAGG~LTC~USD'];
+        
+        socket.emit('SubAdd', {subs:subscription} );
+        
+        socket.on("m", function(message){
+            var messageType = message.substring(0, message.indexOf("~"));
+            var res = {};
+            if (messageType === CCC.STATIC.TYPE.CURRENTAGG) {
+                res = CCC.CURRENT.unpack(message);
+                processUpdate(res);
+            }						
+        });
+    } 
+
+    let initCoin = function(coin) {
+        $(`#${coin.buttonId}`).click(function() {
+            switchCoin(coin);
         });
     }
 
+    let processUpdate = function(update) {
+        let processCoin = coinDict[update.FROMSYMBOL];
+        if (processCoin) {
+            if (update.PRICE) {
+                processCoin.lastPrice = processCoin.price
+                processCoin.price = update.PRICE;
+                processCoin.lastUpdated = -1;
+            }
+
+            if (update.OPENHOUR){
+                processCoin.yesterdayPrice = update.OPENHOUR;
+            }
+
+            if (currentCoin === processCoin){
+                updatePrice();
+            }
+        }
+    }
+
     let switchCoin = function(coin) {
-        $('#ltc-button').removeClass('selected-ltc');
-        $('#btc-button').removeClass('selected-btc');
-        $('#eth-button').removeClass('selected-eth');
+        Object.keys(coinDict).forEach(c => {
+            let coin = coinDict[c];
+            $(`#${coin.buttonId}`).removeClass(coin.selectedClass);
+        });
 
         coin.selectCoin();
 
         $("#coaster").attr("src", coin.imgUrl);
+        $("#countdown").text(coin.lastUpdated);
+
         currentCoin = coin;
         updatePrice();
-    }
-    
-    let countDown = function() {
-        pollCount -= 1;
-        $('#countdown').text(pollCount);
-    
-        if (pollCount <= 0 ) {
-            $('#last-price-container').addClass('grow');
-            setTimeout(() => { $('#last-price-container').removeClass('grow'); }, 2000);
-            pollCount = Constants.Countdown;
-            poll();
-            return;
-        }
-    
-        setTimeout(() => {
-            countDown();
-        }, 1000);
-    }
-    
-    let poll = () => {
-        $.ajax({url: Constants.ApiUrl, success: (result) => {
-            Object.keys(result).forEach(coin => {
-                let selectedCoin = coinDict[coin];
-                if (selectedCoin) {
-                    selectedCoin.lastPrice = selectedCoin.price
-                    selectedCoin.price = Math.round(result[coin].USD * 100) / 100;
-                }
-            });
-    
-            updatePrice();
-            countDown();
-        }});
     }
     
     let updatePrice = function() {
@@ -175,7 +188,6 @@ class Litecoin extends Coin {
 
     let priceStable = function() {
         colorText('grey');
-        changeDirection('sideways');
         
         $('#delta').html(`(&#8594; $0)`);
     }
@@ -183,51 +195,43 @@ class Litecoin extends Coin {
     let priceIncrease = function (delta) {
         colorText(Constants.Green);
 
-        if (currentCoin.uptrend) {
-            changeDirection('up');
+        const change = (delta / currentCoin.price) * 15000;
+
+        if (currentCoin.rotateValue - change > 0) {
+            currentCoin.rotateValue -= change;
         } else {
-            changeDirection('up-diagonal');
+            currentCoin.rotateValue = 0;
         }
-    
+
+        changeDirection(currentCoin.rotateValue);
+
         $('#delta').html(`(&#8593; $${delta})`);
     }
     
     let priceDecrease = function(delta) {
         colorText(Constants.Red);
 
-        if (currentCoin.uptrend) {
-            changeDirection('down-diagonal');
+        const change = (delta / currentCoin.price) * 15000;
+        
+        if (currentCoin.rotateValue + change < 180) {
+            currentCoin.rotateValue += change;
         } else {
-            changeDirection('down');
+            currentCoin.rotateValue = 180;
         }
-    
+
+        changeDirection(currentCoin.rotateValue);
+
         $('#delta').html(`(&#8595; $${delta})`);
     }
 
     changeDirection = function(direction) {
-        $('#coaster').removeClass('up');
-        $('#coaster').removeClass('up-diagonal');
-        $('#coaster').removeClass('sideways');
-        $('#coaster').removeClass('down');
-        $('#coaster').removeClass('down-diagonal');
- 
-        $('#coaster').addClass(direction);
+        $('#coaster').css({'transform': 'rotate(' + direction + 'deg)'});
+        $('#coaster').css({'-ms-transform': 'rotate(' + direction + 'deg)'});
+        $('#coaster').css({'-webkit-transform': 'rotate(' + direction + 'deg)'});
     }
 
     let colorText = function(rgb) {
         $('#price').css('color', rgb);
         $('#delta').css('color', rgb);
     }
-
-    $("#btc-button").click(function() {
-        switchCoin(bitcoin);
-    });
-
-    $("#eth-button").click(function() {
-        switchCoin(ether);
-    });
-
-    $("#ltc-button").click(function() {
-        switchCoin(litecoin);
-    });
 }());

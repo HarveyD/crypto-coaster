@@ -15,7 +15,9 @@
         src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous">
-    </script>
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+  <script src="./ccc-streamer-utilities.js"></script>
 </head>
 
 <body>
@@ -26,14 +28,14 @@
         </div>
 
         <div id="yesterday">
-            <span> Yesterday: </span>
+            <span> 24 Hour: </span>
             <span id="yesterday-price"> </span>
         </div>
 
         <div>
-            <span> Updating in: </span>
-            <span id="countdown"> 15 </span>
-            <span> seconds </span>
+            <span> Last updated: </span>
+            <span id="countdown"> 0 </span>
+            <span> seconds ago </span>
         </div>
     </div>
 
@@ -41,7 +43,7 @@
     </div>
 
     <div class="btc-coaster-container absolute-center">
-        <img id="coaster" class="up" src="./assets/btc-coaster.gif"/>
+        <img id="coaster" class="sideways" src="./assets/btc-coaster.gif"/>
     </div>
 
     <div class="footer">
