@@ -59,11 +59,18 @@ html, body {
 
 #coaster {
     height: 100%;
-    transition: 2s ease-in-out;
-    -webkit-transition: 2s ease-in-out;
-    -moz-transition: 2s ease-in-out;
-    -o-transition: 2s ease-in-out;
-} 
+    transition: 1.5s ease-in-out;
+    -webkit-transition: 1.5s ease-in-out;
+    -moz-transition: 1.5s ease-in-out;
+    -o-transition: 1.5s ease-in-out;
+}
+
+.notransition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
 
 .up {
     -ms-transform: rotate(0deg); /* IE 9 */

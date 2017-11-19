@@ -1,65 +1,71 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title> Crypto Coaster </title>
-  <meta name="description" content="BTC Coaster">
-  <meta name="author" content="Harvey Delaney">
+	<title> Crypto Coaster </title>
+	<meta name="description" content="BTC Coaster">
+	<meta name="author" content="Harvey Delaney">
 
-  <link rel="stylesheet" href="./css/styles.css">
+	<link rel="stylesheet" href="./css/styles.css">
 
-  <script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
-  <script src="./js/ccc-streamer-utilities.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	 crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+	<script src="./js/ccc-streamer-utilities.js"></script>
 </head>
 
 <body>
-    <div class="heading-container absolute-center">
-        <div class="last-price-container absolute-center">
-            <span id="price"> </span> 
-            <span id="delta"> (&#8593; $0) </span>
-        </div>
+	<div class="heading-container absolute-center">
+		<div class="last-price-container absolute-center">
+			<span id="price"> </span>
+			<span id="delta"> (&#8593; $0) </span>
+		</div>
 
-        <div id="yesterday">
-            <span> 24 Hour: </span>
-            <span id="yesterday-price"> </span>
-        </div>
+		<div id="yesterday">
+			<span> 24 Hour: </span>
+			<span id="yesterday-price"> </span>
+		</div>
 
-        <div>
-            <span> Last updated: </span>
-            <span id="countdown"> 0 </span>
-            <span> seconds ago </span>
-        </div>
-    </div>
+		<div>
+			<span> Last updated: </span>
+			<span id="countdown"> 0 </span>
+			<span> seconds ago </span>
+		</div>
+	</div>
 
-    <div class="details absolute-center">
-    </div>
+	<div class="details absolute-center">
+	</div>
 
-    <div class="btc-coaster-container absolute-center">
-        <img id="coaster" class="sideways" src="./assets/btc-coaster.gif"/>
-    </div>
+	<div class="btc-coaster-container absolute-center">
+		<img id="coaster" class="sideways" src="./assets/btc-coaster.gif" />
+	</div>
 
-    <div class="footer">
-        <button id="btc-button" class="selected-btc"> <img src="./assets/bitcoin-logo.svg"></img> BTC </button>
-        <button id="eth-button"> <img src="./assets/ether-logo.svg"></img> ETH </button>
-        <button id="ltc-button"> <img src="./assets/litecoin-logo.svg"></img> LTC </button>
-    </div>
-  <script src="./js/scripts.js"></script>
+	<div class="footer">
+		<button id="btc-button" class="selected-btc">
+			<img src="./assets/bitcoin-logo.svg"></img> BTC </button>
+		<button id="eth-button">
+			<img src="./assets/ether-logo.svg"></img> ETH </button>
+		<button id="ltc-button">
+			<img src="./assets/litecoin-logo.svg"></img> LTC </button>
+	</div>
+	<script src="./js/scripts.js"></script>
 </body>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-98365855-2', 'auto');
-  ga('send', 'pageview', location.pathname);
+<script>
+	(function (i, s, o, g, r, a, m) {	
+i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+		(i[r].q = i[r].q || []).push(arguments)
+	}, i[r].l = 1 * new Date(); a = s.createElement(o),
+		m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+	ga('create', 'UA-98365855-2', 'auto');
+	ga('send', 'pageview', location.pathname);
 </script>
+
 </html>
