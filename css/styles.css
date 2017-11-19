@@ -22,6 +22,15 @@ html, body {
     background-color: rgb(195, 164, 157);
     position: relative;
     z-index: 999;
+    opacity: 1;
+    transform: translate(0px, 0px);
+
+    transition: all 1s ease-in-out;
+}
+
+.initial-hide {
+    opacity: 0;
+    transform: translate(0px, -100px);
 }
 
 .last-price-container span {
@@ -63,6 +72,8 @@ html, body {
     -webkit-transition: 1.5s ease-in-out;
     -moz-transition: 1.5s ease-in-out;
     -o-transition: 1.5s ease-in-out;
+
+    transform: translate(-1000px, 0px) rotate(90deg);
 }
 
 .notransition {
@@ -72,34 +83,20 @@ html, body {
     transition: none !important;
 }
 
-.up {
-    -ms-transform: rotate(0deg); /* IE 9 */
-    -webkit-transform: rotate(0deg); /* Chrome, Safari, Opera */
-    transform: rotate(0deg);
+#loading {
+    opacity: 1;
+    transition: opacity .5s ease-out;
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
-.up-diagonal {
-    -ms-transform: rotate(45deg); /* IE 9 */
-    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
-    transform: rotate(45deg);
-}
-
-.sideways {
-    -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-    transform: rotate(90deg);
-}
-
-.down-diagonal {
-    -ms-transform: rotate(135deg); /* IE 9 */
-    -webkit-transform: rotate(135deg); /* Chrome, Safari, Opera */
-    transform: rotate(135deg);
-}
-
-.down {
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);
+#loading img {
+    height: 65%;
+    width: 65%;
 }
 
 .footer {

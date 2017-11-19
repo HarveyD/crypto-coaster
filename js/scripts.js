@@ -37,7 +37,6 @@ class Coin {
 		this.price = 0;
 		this.lastPrice = 0;
 		this.yesterdayPrice = 0;
-		this.uptrend = true;
 		this.lastUpdated = 0;
 		this.rotateValue = 90;
 	}
@@ -50,6 +49,7 @@ class Coin {
 class Bitcoin extends Coin {
 	constructor() {
 		super();
+		this.hasInit = false;
 		this.buttonId = 'btc-button';
 		this.selectedClass = 'selected-btc';
 		this.imgUrl = 'assets/btc-coaster.gif';
@@ -90,16 +90,27 @@ class Litecoin extends Coin {
 		'LTC': litecoin
 	};
 
-	$(document).ready(() => {
+	$(document).ready(() => {		
 		timerTick();
 		initSocket();
 
 		Object.keys(coinDict).forEach(coin => {
 			initCoin(coinDict[coin]);
 		});
-
-		switchCoin(bitcoin);
 	});
+	
+	let animateInitialEntrance = () => {
+		$('.heading-container').removeClass('initial-hide');
+		getIncomingRotation(bitcoin);
+		// TODO: add -webkit etc to this css jquery function
+		$('#coaster').css({'transform': `translate(0px, 0px) rotate(${bitcoin.rotateValue}deg)` });
+		$('#loading').css({'opacity': '0'});
+
+		$('#coaster').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', () => {
+			currentState = 'inScreen';
+			bitcoin.hasInit = true;
+		});
+	}
 
 	let timerTick = () => {
 		setInterval(() => {
@@ -129,37 +140,37 @@ class Litecoin extends Coin {
 
 	let processUpdate = (update) => {
 		let processCoin = coinDict[update.FROMSYMBOL];
-		
+
 		if (!processCoin) {
 			throw 'Coin not found in dictionary';
 		}
-		
+
+		if (!bitcoin.hasInit && processCoin === bitcoin && bitcoin.price !== 0 && bitcoin.yesterdayPrice !== 0) {
+			animateInitialEntrance();
+		}
+
 		if (update.PRICE) {
-			processCoin.lastPrice = processCoin.price
+			processCoin.lastPrice = processCoin.price;
 			processCoin.price = update.PRICE;
 			processCoin.lastUpdated = -1;
 
 			if (currentCoin === processCoin) {
-				$('#price').addClass('grow');
-
-				setTimeout(() => {
-					$('#price').removeClass('grow');
-				}, 1000);
+				updatePriceInfo();
 			}
 		}
 
 		if (update.OPENHOUR) {
 			processCoin.yesterdayPrice = update.OPENHOUR;
 		}
-
-		if (currentCoin === processCoin) {
-			updatePrice();
-		}
 	}
 
 	let initCoin = function (coin) {
 		$(`#${coin.buttonId}`).click(() => {
-			switchCoin(coin);
+			if (currentCoin === coin || currentState !== 'inScreen') {
+				return;
+			}
+
+			transitionCoin(coin);
 		});
 	}
 
@@ -173,29 +184,32 @@ class Litecoin extends Coin {
 
 		let transitionOut = () => {
 			$('#coaster').addClass('notransition');
-			$('#coaster').css({'transform': `rotate(${currentCoin.rotateValue}deg)`});
+			$('#coaster').css({ 'transform': `rotate(${currentCoin.rotateValue}deg)` });
 			$('#coaster').removeClass('notransition');
 
 			currentState = 'leavingScreen';
-			$('#coaster').css({'transform': `translate(${x}px, ${y}px) rotate(${currentCoin.rotateValue}deg)`});
+			$('#coaster').css({ 'transform': `translate(${x}px, ${y}px) rotate(${currentCoin.rotateValue}deg)` });
 		}
 
 		let transitionIn = () => {
+			getIncomingRotation(incomingCoin);
+
 			$('#coaster').addClass('notransition');
 			const incomingX = -Math.cos(((incomingCoin.rotateValue - 90) * (Math.PI / 180))) * 1000;
-			const incomingY =  -Math.sin(((incomingCoin.rotateValue - 90) * (Math.PI / 180))) * 1000;
-			$('#coaster').css({'transform': `translate(${incomingX}px, ${incomingY}px) rotate(${incomingCoin.rotateValue}deg)`});
-			$('#coaster')[0].offsetHeight;
+			const incomingY = -Math.sin(((incomingCoin.rotateValue - 90) * (Math.PI / 180))) * 1000;
+			$('#coaster').css({ 'transform': `translate(${incomingX}px, ${incomingY}px) rotate(${incomingCoin.rotateValue || 90}deg)` });
+
+			$('#coaster')[0].offsetHeight; // This refreshes the browser animation cache to be able to immediately transition something
 			$('#coaster').removeClass('notransition');
 
-			$('#coaster').css({'transform': `translate(0px, 0px) rotate(${incomingCoin.rotateValue}deg)`});
+			$('#coaster').css({'transform': `translate(0px, 0px) rotate(${incomingCoin.rotateValue}deg)` });
 
 			updateCoinInfo(incomingCoin);
 		}
 
 		$("#coaster").one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", () => {
 			switch (currentState) {
-				case 'leavingScreen': 
+				case 'leavingScreen':
 					transitionIn();
 					currentState = 'enteringScreen';
 					break;
@@ -210,6 +224,19 @@ class Litecoin extends Coin {
 		}
 	};
 
+	let getIncomingRotation = (coin) => {
+		const delt = coin.price - coin.yesterdayPrice;
+		let rotationFactor = 180 - (90 + (delt / coin.price) * 1000);
+		
+		if (rotationFactor > Constants.MaxRotate) {
+			rotationFactor = Constants.MaxRotate;
+		} else if (rotationFactor < 0) {
+			rotationFactor = 0;
+		}
+		
+		coin.rotateValue = rotationFactor;
+	}
+
 	let updateCoinInfo = (coin) => {
 		Object.keys(coinDict).forEach(c => {
 			let coin = coinDict[c];
@@ -222,29 +249,36 @@ class Litecoin extends Coin {
 		$("#countdown").text(coin.lastUpdated);
 
 		currentCoin = coin;
-		updatePrice();
+		updatePriceInfo();
 	}
 
-	let updatePrice = (coin) => {
-		updateYesterdayPrice();
-
+	let updatePriceInfo = (coin) => {
 		const price = currentCoin.price;
 		const lastPrice = currentCoin.lastPrice;
 
-		$('#price').text(`$${price} USD`);
+		updateYesterdayPrice();
+
+		$('#price')
+			.text(`$${price} USD`)
+			.addClass('grow');
+
+		setTimeout(() => {
+			$('#price').removeClass('grow');
+		}, 1000);
 
 		const delta = Math.round(Math.abs(price - lastPrice) * 100) / 100;
-
+		const rotationFactor = (delta / currentCoin.price) * 15000;
+		
 		if (lastPrice === price || price === 0 || price === delta) {
 			priceStable();
 		} else if (price > lastPrice) {
-			priceIncrease(delta);
+			priceIncrease(delta, rotationFactor);
 		} else {
-			priceDecrease(delta);
+			priceDecrease(delta, rotationFactor);
 		}
 	}
 
-	let updateYesterdayPrice = function () {
+	let updateYesterdayPrice = () => {
 		$('#yesterday-price').text(`$${currentCoin.yesterdayPrice} USD `);
 
 		const yesterdayDelta = Math.round((currentCoin.price - currentCoin.yesterdayPrice) * 100) / 100;
@@ -252,53 +286,43 @@ class Litecoin extends Coin {
 			$('#yesterday-price')
 				.css('color', Constants.Green)
 				.append(`(${Constants.UpArrow} $${Math.abs(yesterdayDelta)})`);
-
-			currentCoin.uptrend = true;
 		} else {
 			$('#yesterday-price')
 				.css('color', Constants.Red)
 				.append(`(${Constants.DownArrow} $${Math.abs(yesterdayDelta)})`);
-
-			currentCoin.uptrend = false;
 		}
 	}
 
-	let priceStable = function () {
+	let priceStable = () => {
 		colorText('grey');
 
 		$('#delta').html(`(${Constants.SideArrow} $0)`);
 	}
 
-	let priceIncrease = function (delta) {
+	let priceIncrease = (delta, rotationFactor) => {
+		$('#delta').html(`(${Constants.UpArrow} $${delta})`);
 		colorText(Constants.Green);
-
-		const change = (delta / currentCoin.price) * 15000;
-
-		if (currentCoin.rotateValue - change > 0) {
-			currentCoin.rotateValue -= change;
+		
+		if (currentCoin.rotateValue - rotationFactor > 0) {
+			currentCoin.rotateValue -= rotationFactor;
 		} else {
 			currentCoin.rotateValue = 0;
 		}
 
 		changeDirection(currentCoin.rotateValue);
-
-		$('#delta').html(`(${Constants.UpArrow} $${delta})`);
 	}
 
-	let priceDecrease = (delta) => {
+	let priceDecrease = (delta, rotationFactor) => {
+		$('#delta').html(`(${Constants.DownArrow} $${delta})`);
 		colorText(Constants.Red);
-
-		const change = (delta / currentCoin.price) * 15000;
-
-		if (currentCoin.rotateValue + change < Constants.MaxRotate) {
-			currentCoin.rotateValue += change;
+		
+		if (currentCoin.rotateValue + rotationFactor < Constants.MaxRotate) {
+			currentCoin.rotateValue += rotationFactor;
 		} else {
 			currentCoin.rotateValue = Constants.MaxRotate;
 		}
 
 		changeDirection(currentCoin.rotateValue);
-
-		$('#delta').html(`(${Constants.DownArrow} $${delta})`);
 	}
 
 	let changeDirection = (direction) => {
@@ -307,9 +331,9 @@ class Litecoin extends Coin {
 		}
 
 		$('#coaster')
-			.css({ 'transform': `rotate(${direction}deg)`})
-			.css({ '-ms-transform': `rotate(${direction}deg)`})
-			.css({ '-webkit-transform': `rotate(${direction}deg)`});
+			.css({ 'transform': `rotate(${direction}deg)` })
+			.css({ '-ms-transform': `rotate(${direction}deg)` })
+			.css({ '-webkit-transform': `rotate(${direction}deg)` });
 	}
 
 	let colorText = (rgb) => {
