@@ -179,8 +179,8 @@ class Litecoin extends Coin {
 	}
 
 	let transitionCoin = (incomingCoin) => {
-		const x = Math.cos(((currentCoin.rotateValue - 90) * (Math.PI / 180))) * 1000;
-		const y = Math.sin(((currentCoin.rotateValue - 90) * (Math.PI / 180))) * 1000;
+		const x = Math.cos(((currentCoin.rotateValue - 90) * (Math.PI / 180))) * getMoveDistance();
+		const y = Math.sin(((currentCoin.rotateValue - 90) * (Math.PI / 180))) * getMoveDistance();
 
 		let transitionOut = () => {
 			$('#coaster').addClass('notransition');
@@ -195,8 +195,8 @@ class Litecoin extends Coin {
 			getIncomingRotation(incomingCoin);
 
 			$('#coaster').addClass('notransition');
-			const incomingX = -Math.cos(((incomingCoin.rotateValue - 90) * (Math.PI / 180))) * 1000;
-			const incomingY = -Math.sin(((incomingCoin.rotateValue - 90) * (Math.PI / 180))) * 1000;
+			const incomingX = -Math.cos(((incomingCoin.rotateValue - 90) * (Math.PI / 180))) * getMoveDistance();
+			const incomingY = -Math.sin(((incomingCoin.rotateValue - 90) * (Math.PI / 180))) * getMoveDistance();
 			$('#coaster').css({ 'transform': `translate(${incomingX}px, ${incomingY}px) rotate(${incomingCoin.rotateValue || 90}deg)` });
 
 			$('#coaster')[0].offsetHeight; // This refreshes the browser animation cache to be able to immediately transition something
@@ -340,4 +340,9 @@ class Litecoin extends Coin {
 		$('#price').css('color', rgb);
 		$('#delta').css('color', rgb);
 	}
+
+	let getMoveDistance = () => {
+		return (0.75 * $(window).width());
+	}
+
 }());

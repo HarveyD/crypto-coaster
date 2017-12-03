@@ -73,7 +73,7 @@ html, body {
     -moz-transition: 1.5s ease-in-out;
     -o-transition: 1.5s ease-in-out;
 
-    transform: translate(-1000px, 0px) rotate(90deg);
+    transform: translate(-1500px, 0px) rotate(90deg);
 }
 
 .notransition {
