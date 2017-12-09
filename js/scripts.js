@@ -61,7 +61,7 @@ class Ether extends Coin {
 		super();
 		this.buttonId = 'eth-button';
 		this.selectedClass = 'selected-eth';
-		this.imgUrl = 'assets/eth-coaster.gif';
+		this.imgUrl = 'assets/eth-coaster-2.gif';
 	}
 }
 
