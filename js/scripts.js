@@ -176,7 +176,6 @@ class OmiseGO extends Coin {
 	};
 
 	let currentCoin = coinDict['BTC'];
-	let bitcoin = coinDict['BTC']; // Todo: remove this;
 
 	$(document).ready(() => {
 		timerTick();
@@ -210,14 +209,14 @@ class OmiseGO extends Coin {
 	
 	let animateInitialEntrance = () => {
 		$('.heading-container').removeClass('initial-hide');
-		getIncomingRotation(bitcoin);
+		getIncomingRotation(currentCoin);
 		// TODO: add -webkit etc to this css jquery function
-		$('#coaster').css({'transform': `translate(0px, 0px) rotate(${bitcoin.rotateValue}deg)` });
+		$('#coaster').css({'transform': `translate(0px, 0px) rotate(${currentCoin.rotateValue}deg)` });
 		$('#loading').css({'opacity': '0'});
 
 		$('#coaster').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', () => {
 			currentState = 'inScreen';
-			bitcoin.hasInit = true;
+			currentCoin.hasInit = true;
 		});
 	}
 
@@ -254,7 +253,7 @@ class OmiseGO extends Coin {
 			throw 'Coin not found in dictionary';
 		}
 
-		if (!bitcoin.hasInit && processCoin === bitcoin && bitcoin.price !== 0 && bitcoin.yesterdayPrice !== 0) {
+		if (!currentCoin.hasInit && processCoin === currentCoin && currentCoin.price !== 0 && currentCoin.yesterdayPrice !== 0) {
 			animateInitialEntrance();
 		}
 
@@ -292,20 +291,16 @@ class OmiseGO extends Coin {
 	};
 
 	let toggleMenu = function () {
-		$('.overlay')
-			.css('display', 'block');
 		$('.footer-modal').css('top', '60%');
 		$('.overlay').addClass('toggled');
+
+		$('.overlay').css('pointer-events', 'all');
 	}
 
 	let untoggleMenu = () => {
-		$('.overlay')
-			.removeClass('toggled');
+		$('.overlay').css('pointer-events', 'none');
+		$('.overlay').removeClass('toggled');
 		$('.footer-modal').css('top', '100%');
-
-		$('.overlay').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', () => {
-			$('.overlay').css('display', 'none');
-		});
 	};
 
 	let switchCoin = function (coin) {

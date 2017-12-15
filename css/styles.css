@@ -21,7 +21,7 @@ html, body {
     color: white;
     background-color: rgb(195, 164, 157);
     position: relative;
-    z-index: 999;
+    z-index: 10;
     opacity: 1;
     transform: translate(0px, 0px);
 
@@ -102,7 +102,7 @@ html, body {
 .footer {
     transition: top 1s ease-in-out;
     position: absolute;
-    z-index: 999;
+    z-index: 20;
     height: 10%;
     width: 100%;
     display: flex;
@@ -140,7 +140,7 @@ html, body {
 }
 
 .footer-modal {
-	z-index: 999;
+	z-index: 30;
 	height: 100%;
 	width: 100%;
 	position: absolute;
@@ -172,14 +172,14 @@ html, body {
 }
 
 .overlay {
-    display: none;
     position: absolute;
     background-color: rgba(0, 0, 0, 0);
     top: 0;
     transition: 1s ease-in-out background-color;
     height: 100%;
     width: 100%;
-    z-index: 999;
+    z-index: 20;
+    pointer-events: none;
 }
 
 .toggled {
