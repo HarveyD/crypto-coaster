@@ -33,13 +33,28 @@ html, body {
     transform: translate(0px, -100px);
 }
 
+.last-price-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .last-price-container span {
     font-size: 64px;
 }
 
 .last-price-container #price {
+    font-weight: bold;
+    width: 100%;
     color: rgb(74, 134, 119);
     display: inline-block;
+}
+
+.last-price-container #delta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
 }
 
 .grow {
@@ -233,7 +248,7 @@ html, body {
 
 @media screen and (max-width: 780px) {
     .last-price-container span {
-        font-size: 36px;
+        font-size: 42px;
         color: white;
     }
 

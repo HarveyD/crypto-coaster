@@ -26,15 +26,15 @@ class Constants {
 	}
 
 	static get UpArrow() {
-		return '&#8593;';
+		return '<i class="fa fa-arrow-up" aria-hidden="true"></i>';
 	}
 
 	static get DownArrow() {
-		return '&#8595;';
+		return '<i class="fa fa-arrow-down" aria-hidden="true"></i>';
 	}
 
 	static get SideArrow() {
-		return '&#8594;';
+		return '<i class="fa fa-arrow-right" aria-hidden="true"></i>';
 	}
 
 	static get MaxRotate() {
@@ -429,7 +429,7 @@ class OmiseGO extends Coin {
 	}
 
 	let priceIncrease = (delta, rotationFactor) => {
-		$('#delta').html(`(${Constants.UpArrow} $${delta})`);
+		$('#delta').html(`${Constants.UpArrow} $${delta}`);
 		colorText(Constants.Green);
 		
 		if (currentCoin.rotateValue - rotationFactor > 0) {
@@ -442,7 +442,7 @@ class OmiseGO extends Coin {
 	}
 
 	let priceDecrease = (delta, rotationFactor) => {
-		$('#delta').html(`(${Constants.DownArrow} $${delta})`);
+		$('#delta').html(`${Constants.DownArrow} $${delta}`);
 		colorText(Constants.Red);
 		
 		if (currentCoin.rotateValue + rotationFactor < Constants.MaxRotate) {
