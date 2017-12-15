@@ -16,7 +16,7 @@ html, body {
 }
 
 .heading-container {
-    height: 25%;
+    height: 22.5%;
     flex-direction: column;
     color: white;
     background-color: rgb(195, 164, 157);
@@ -81,7 +81,7 @@ html, body {
 }
  
 .btc-coaster-container {
-    height: 62.5%;
+    height: 65%;
     width: 100%;
 }
 
