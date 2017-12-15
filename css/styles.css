@@ -21,7 +21,7 @@ html, body {
     color: white;
     background-color: rgb(195, 164, 157);
     position: relative;
-    z-index: 999;
+    z-index: 10;
     opacity: 1;
     transform: translate(0px, 0px);
 
@@ -100,53 +100,112 @@ html, body {
 }
 
 .footer {
-    position: relative;
-    z-index: 999;
+    transition: top 1s ease-in-out;
+    position: absolute;
+    z-index: 20;
     height: 10%;
     width: 100%;
     display: flex;
     flex-direction: row;
+    cursor: pointer;
 }
 
 .footer button {
-    width: 33.33%;
-    display: inline-block;
-    font-size: 32px;
-    color: white;
-    border: none;
-    background-color: grey;
-    outline: none;
-    transition: background-color 0.5s ease;
+	width: 100%;
+	display: inline-block;
+	font-size: 32px;
+	color: white;
+	border: none;
+	background-color: grey;
+	outline: none;
+	transition: all 0.5s ease;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .footer button img {
     height: 32px;
+    padding-right: 8px;
 }
 
+.footer .up-icon {
+    position: absolute;
+    right: 7.5%;
+    color: black;
+    animation: grow-then-shrink 2s;
+    -moz-animation: grow-then-shrink 2s infinite; 
+    -webkit-animation: grow-then-shrink 2s infinite;
+}
+
+.footer-modal {
+	z-index: 30;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 100%;
+	display: flex;
+	flex-direction: column;
+    background-color: white;
+    transition: top 1s ease-in-out;
+}
+
+.button-row {
+    padding-top: 16px;
+	width: 100%;
+	height: 10%;
+	justify-content: space-around;
+	display: flex;	
+}
+
+.button-row .button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 32px;
+	width: 30%;
+	height: 100%;
+	background-color: grey;
+	color: white;
+	border-radius: 16px;
+}
+
+.overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0);
+    top: 0;
+    transition: 1s ease-in-out background-color;
+    height: 100%;
+    width: 100%;
+    z-index: 20;
+    pointer-events: none;
+}
+
+.toggled {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+/* 
 .selected-btc {
     background-color: #FF9900;
     animation: btc-glow 5s;
-    -moz-animation: btc-glow 5s infinite; /* Firefox */
-    -webkit-animation: btc-glow 5s infinite; /* Safari and Chrome */
+    -moz-animation: btc-glow 5s infinite; 
+    -webkit-animation: btc-glow 5s infinite; 
 }
 
 .selected-eth {
     background-color: #93a1c6;
     animation: eth-glow 5s;
-    -moz-animation: eth-glow 5s infinite; /* Firefox */
-    -webkit-animation: eth-glow 5s infinite; /* Safari and Chrome */
+    -moz-animation: eth-glow 5s infinite; 
+    -webkit-animation: eth-glow 5s infinite;
 }
 
 .selected-ltc {
     background-color: #636467;
     animation: ltc-glow 5s;
-    -moz-animation: ltc-glow 5s infinite; /* Firefox */
-    -webkit-animation: ltc-glow 5s infinite; /* Safari and Chrome */
-}
+    -moz-animation: ltc-glow 5s infinite;
+    -webkit-animation: ltc-glow 5s infinite;
+} */
 
 @keyframes grow-then-shrink {
 	0% { transform: none; }
