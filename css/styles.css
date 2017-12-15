@@ -5,6 +5,7 @@ html, body {
     padding: 0px;
     margin: 0px;
     overflow: hidden; 
+    position: fixed;
 
     font-family: Arial, Helvetica, sans-serif;
 }
