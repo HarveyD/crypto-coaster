@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title> Crypto Coaster </title>
-	<meta name="description" content="Watch the cryptocurrency mascots (Bitcoin, Ethereum, Litecoin) react to realtime price updates.">
+	<meta name="description" content="Watch the cryptocurrency mascots (Bitcoin, Ethereum, Litecoin) react to realtime price updates on their rollcoaster.">
 	<meta name="author" content="Harvey Delaney">
 
 	<link rel="stylesheet" href="./css/styles.css">
@@ -16,6 +16,7 @@
 	 crossorigin="anonymous">
 	</script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<script src="./js/ccc-streamer-utilities.js"></script>
 </head>
 
@@ -46,17 +47,20 @@
 	</div>
 
 	<div class="btc-coaster-container absolute-center">
-		<img id="coaster" src="./assets/btc-coaster.gif" />
+		<img id="coaster" src="./assets/coasters/btc-coaster.gif" />
 	</div>
 
 	<div class="footer">
-		<button id="btc-button" class="selected-btc">
-			<img src="./assets/bitcoin-logo.svg"></img> BTC </button>
-		<button id="eth-button">
-			<img src="./assets/ether-logo.svg"></img> ETH </button>
-		<button id="ltc-button">
-			<img src="./assets/litecoin-logo.svg"></img> LTC </button>
+		<button id="selected-coin" style="background-color: #FF9900">
+			<img class="logo" src="./assets/coin-svg/BTC.svg"></img> 
+			<span class="ticker"> Bitcoin </span>
+			<i class="up-icon fa fa-chevron-up" aria-hidden="true"></i>
+		</button>
 	</div>
+
+	<div class="overlay"></div>
+	<div class="footer-modal"></div>
+
 	<script src="./js/scripts.js"></script>
 </body>
 
