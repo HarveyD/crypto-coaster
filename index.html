@@ -12,6 +12,9 @@
 	
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="Crypto Coaster" />
+	<meta property="fb:app_id" content="915427361948624">
+	<meta property="og:url"	content="https://www.harveydelaney.com/crypto-coaster" />
+	<meta property="og:type" content="website" />
 	<meta property="og:description" content="Watch all your favourite cryptocurrencies (BTC, ETH, LTC, XMR and more) ride their crypto coaster and react to realtime price updates on their wild rollcoaster ride.">
 	<meta property="og:image" content="https://www.harveydelaney.com/images/crypto-coaster.jpg" />
 
@@ -87,4 +90,23 @@ i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
 	ga('create', 'UA-98365855-2', 'auto');
 	ga('send', 'pageview', location.pathname);
 </script>
+
+<script>
+	window.fbAsyncInit = function() {
+	  FB.init({
+		appId      : '915427361948624',
+		xfbml      : true,
+		version    : 'v2.11'
+	  });
+	  FB.AppEvents.logPageView();
+	};
+  
+	(function(d, s, id){
+	   var js, fjs = d.getElementsByTagName(s)[0];
+	   if (d.getElementById(id)) {return;}
+	   js = d.createElement(s); js.id = id;
+	   js.src = "https://connect.facebook.net/en_US/sdk.js";
+	   fjs.parentNode.insertBefore(js, fjs);
+	 }(document, 'script', 'facebook-jssdk'));
+  </script>
 </html>
