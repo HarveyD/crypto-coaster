@@ -179,6 +179,7 @@ html, body {
     margin-top: 0.75rem;
     color: #0000EE;
     cursor: pointer;
+    padding-bottom: 1rem;
 }
 
 .more-info .fa-info-circle {
