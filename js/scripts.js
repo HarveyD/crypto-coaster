@@ -189,6 +189,14 @@ class OmiseGO extends Coin {
 			untoggleMenu();
 		});
 
+		$('.more-info').click(() => {
+			toggleInfo();
+		});
+
+		$('.info-close').click(() => {
+			unToggleInfo();
+		});
+
 		Object.keys(coinDict).forEach((coin, index) => {
 			renderCoinButton(coinDict[coin], coin, index);
 			initCoin(coinDict[coin]);
@@ -197,14 +205,14 @@ class OmiseGO extends Coin {
 
 	let renderCoinButton = (coin, ticker, index) => {
 		if (index % 3 === 0) {
-			$('.footer-modal').append(`<div id="row-${Math.floor(index / 3)}" class="button-row"></div>`);
+			$('.footer-modal').prepend(`<div id="row-${Math.floor(index / 3)}" class="button-row"></div>`);
 		}
 
-		$(`.footer-modal #row-${Math.floor(index / 3)}`).append(`
+		$(`.footer-modal #row-${Math.floor(index / 3)}`).prepend(`
 			<div id="${coin.buttonId}" class="button" style="background-color:${coin.buttonColor}">
 				${ticker}
 			</div>
-			`);
+		`);
 	};
 	
 	let animateInitialEntrance = () => {
@@ -291,7 +299,7 @@ class OmiseGO extends Coin {
 	};
 
 	let toggleMenu = function () {
-		$('.footer-modal').css('top', '60%');
+		$('.footer-modal').css('top', '57.5%');
 		$('.overlay').addClass('toggled');
 
 		$('.overlay').css('pointer-events', 'all');
@@ -302,6 +310,14 @@ class OmiseGO extends Coin {
 		$('.overlay').removeClass('toggled');
 		$('.footer-modal').css('top', '100%');
 	};
+
+	let toggleInfo = () => {
+		$('.info-modal').css('top', '0%');
+	};
+
+	let unToggleInfo = () => {
+		$('.info-modal').css('top', '100%');
+	}
 
 	let switchCoin = function (coin) {
 		transitionCoin(coin);

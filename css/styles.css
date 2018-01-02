@@ -142,7 +142,8 @@ html, body {
 
 	display: flex;
 	justify-content: center;
-	align-items: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .footer button img {
@@ -166,13 +167,98 @@ html, body {
 	position: absolute;
 	top: 100%;
 	display: flex;
-	flex-direction: column;
+    flex-direction: column;
     background-color: white;
     transition: top 1s ease-in-out;
 }
 
+.footer-modal .more-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.75rem;
+    color: #0000EE;
+    cursor: pointer;
+}
+
+.more-info .fa-info-circle {
+    padding-left: .25rem;
+}
+
+.info-modal {
+    position: absolute;
+    top: 100%;
+    height: 100%;
+    width: 100%;
+    z-index: 40;
+    background-color: white;
+    transition: top ease-in-out 1s;
+    padding-left: 5%;
+    padding-right: 5%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.info-modal .heading {
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgb(30, 30, 30);
+    color: white;
+    z-index: 50;
+    width: 100%;
+    margin-left: -5%;
+}
+
+.info-modal .heading .fa-times {
+    position: absolute;
+    font-size: 2rem;
+    right: 1rem;
+    cursor: pointer;
+}
+
+.info-modal .social {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-around;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.info-modal .social a { 
+    color: inherit; 
+} 
+
+.info-modal .body {
+    overflow-wrap: break-word;
+    margin-bottom: 2.5rem;
+}
+
+.info-modal .body h2 {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.info-modal .body h3 {
+    margin-bottom: 0;
+}
+
+.info-modal .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    height: 10%;
+    border-top: 1px solid black;
+    font-size: 1.5rem;
+}
+
 .button-row {
-    padding-top: 16px;
+    padding-top: 0.75rem;
 	width: 100%;
 	height: 10%;
 	justify-content: space-around;
@@ -188,7 +274,8 @@ html, body {
 	height: 100%;
 	background-color: grey;
 	color: white;
-	border-radius: 16px;
+    border-radius: 16px;
+    cursor: pointer;
 }
 
 .overlay {
@@ -200,32 +287,12 @@ html, body {
     width: 100%;
     z-index: 20;
     pointer-events: none;
+    cursor: pointer;
 }
 
 .toggled {
     background-color: rgba(0, 0, 0, 0.5);
 }
-/* 
-.selected-btc {
-    background-color: #FF9900;
-    animation: btc-glow 5s;
-    -moz-animation: btc-glow 5s infinite; 
-    -webkit-animation: btc-glow 5s infinite; 
-}
-
-.selected-eth {
-    background-color: #93a1c6;
-    animation: eth-glow 5s;
-    -moz-animation: eth-glow 5s infinite; 
-    -webkit-animation: eth-glow 5s infinite;
-}
-
-.selected-ltc {
-    background-color: #636467;
-    animation: ltc-glow 5s;
-    -moz-animation: ltc-glow 5s infinite;
-    -webkit-animation: ltc-glow 5s infinite;
-} */
 
 @keyframes grow-then-shrink {
 	0% { transform: none; }
@@ -233,22 +300,39 @@ html, body {
 	100% { transform: none; }
 }
 
-@keyframes btc-glow {
-	0% { background-color: #FF9900; }
-	50% { background-color: #F5CE1D; }
-	100% { background-color: #FF9900; }
-}
+@media screen and (min-width: 780px) {
+    .info-modal {
+        padding-left: 25%;
+        padding-right: 25%;
+    }
 
-@keyframes eth-glow {
-	0% { background-color: #93a1c6; }
-	50% { background-color: #516BB1; }
-	100% { background-color: #93a1c6; }
-}
+    .info-modal .heading {
+        font-size: 1.75rem;
+        margin-left: -25%;
+    }
 
-@keyframes ltc-glow {
-	0% { background-color: #636467; }
-	50% { background-color: #A6A9AF; }
-	100% { background-color: #636467; }
+    .info-modal .heading h1 {
+        margin-top: 0.25em;
+        margin-bottom: 0.25em;
+    }
+
+    .info-modal .heading .fa-times {
+        font-size: 2.5rem;
+        right: 2rem;
+    }
+
+    .info-modal .body {
+        font-size: 1.25rem;
+    }
+
+    .info-modal .social {
+        margin-top: 7.5rem;
+        font-size: 6rem;
+    }
+
+    .footer-modal .more-info {
+        font-size: 2rem;
+    }
 }
 
 @media screen and (max-width: 780px) {

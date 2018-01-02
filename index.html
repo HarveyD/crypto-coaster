@@ -9,11 +9,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Watch all your favourite cryptocurrencies (BTC, ETH, LTC, XMR and more) ride their crypto coaster and react to realtime price updates on their wild rollcoaster ride.">
 	<meta name="keywords" content="Crypto,Currency,Cryptocurrency,Coaster,Bitcoin,Ethereum,Litecoin,Price">
-	
+
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="Crypto Coaster" />
 	<meta property="fb:app_id" content="915427361948624">
-	<meta property="og:url"	content="https://www.harveydelaney.com/crypto-coaster" />
+	<meta property="og:url" content="https://www.harveydelaney.com/crypto-coaster" />
 	<meta property="og:type" content="website" />
 	<meta property="og:description" content="Watch all your favourite cryptocurrencies (BTC, ETH, LTC, XMR and more) ride their crypto coaster and react to realtime price updates on their wild rollcoaster ride.">
 	<meta property="og:image" content="https://www.harveydelaney.com/images/crypto-coaster.jpg" />
@@ -24,14 +24,8 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="./css/styles.css">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	
-	<!-- JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	 crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
-	<script src="./js/ccc-streamer-utilities.js"></script>
-	<script src="./js/scripts.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	 crossorigin="anonymous">
 </head>
 
 <body>
@@ -40,8 +34,8 @@
 			<span id="price"> </span>
 			<span id="delta">
 				<i class="fa fa-arrow-right" aria-hidden="true"></i>
-				 $0 
-				</span>
+				$0
+			</span>
 		</div>
 
 		<div id="yesterday">
@@ -57,7 +51,7 @@
 	</div>
 
 	<div id="loading">
-		<img src="./assets/loading.svg"/>
+		<img src="./assets/loading.svg" />
 	</div>
 
 	<div class="details absolute-center">
@@ -69,22 +63,70 @@
 
 	<div class="footer">
 		<button id="selected-coin" style="background-color: #FF9900">
-			<img class="logo" src="./assets/coin-svg/BTC.svg"></img> 
+			<img class="logo" src="./assets/coin-svg/BTC.svg"></img>
 			<span class="ticker"> Bitcoin </span>
 			<i class="up-icon fa fa-chevron-up" aria-hidden="true"></i>
 		</button>
 	</div>
 
 	<div class="overlay"></div>
-	<div class="footer-modal"></div>
+	<div class="footer-modal">
+		<div class="more-info">
+			<span> Crypto Coaster </span>
+			<i class="fa fa-info-circle" aria-hidden="true"></i>
+		</div>
+	</div>
+
+	<div class="info-modal">
+		<div class="heading">
+			<h1> Crypto Coaster </h1>
+			<i class="info-close fa fa-times" aria-hidden="true"></i>
+		</div>
+
+		<div class="social">
+				<i class="fa fa-facebook-official" aria-hidden="true"></i>
+			<a href="https://www.reddit.com/r/Bitcoin/comments/76i0am/spent_this_afternoon_creating_a_web_version_of/"><i class="fa fa-reddit" aria-hidden="true"></i></a>
+			<a href="https://github.com/HarveyD/crypto-coaster"><i class="fa fa-github" aria-hidden="true"></i></a>
+		</div>
+
+		<div class="body">
+			<p> Hey! My name is Harvey Delaney and I wrote Crypto Coaster to improve my skills with JavaScript. </p> 
+			<p> This is one of a few of my small projects I write to get better at coding. Check my other projects out on <a href="https://www.harvedelaney.com"> my website. </a></p>
+			<p> It started off as a very small project with only 3 coins, Bitcoin, Ethereum and Litecoin. As people gave great feedback, I spent more time improving the look and feel of the site as well as adding 6 more coins. </p> 
+			<p> I plan to add more coins in the future as I find/create the appropriate coaster gifs for other currencies.</p> 
+			<p> If you have any requests, or want to contribute yourself. Use the contact me page on my main portfolio.</p> 
+			
+			<h2> Donations </h2>
+			<h3> Bitcoin: </h3>
+			<span> 1BKFgaAXZaESzzHq5k2mMA9Gp3Ko5ATStB </span>
+
+			<h3 > Ethereum: </h3>
+			<span> 0x41b7321491ac2774af7e40fe5b16b14574d4b0d1 </span>
+			<h3> Litecoin: </h3>
+			<span> LSU9ASDKWxRrSjynyeryG4L395B9GM6MfT </span>
+			<h3> Dash: </h3> 
+			<span> XvVz8HAn5i7fwJxwpW8PbU9Pd2pTKfAnvg </span>
+
+			<h2> Resources </h2>
+			<p> <a href="https://www.cryptocompare.com/api/"> Crypto Compare </a> for live price updates (using sockets). </p>
+			<p> <a href="http://crypto-coaster.com/"> Crypto Coaster </a> for the crypto coaster gifs. </p>
+		</div>
+	</div>
 </body>
 
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+<script src="./js/ccc-streamer-utilities.js"></script>
+<script src="./js/scripts.js"></script>
+
 <script>
-	(function (i, s, o, g, r, a, m) {	
-i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-		(i[r].q = i[r].q || []).push(arguments)
-	}, i[r].l = 1 * new Date(); a = s.createElement(o),
-		m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
 	})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
 	ga('create', 'UA-98365855-2', 'auto');
@@ -92,21 +134,22 @@ i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
 </script>
 
 <script>
-	window.fbAsyncInit = function() {
-	  FB.init({
-		appId      : '915427361948624',
-		xfbml      : true,
-		version    : 'v2.11'
-	  });
-	  FB.AppEvents.logPageView();
+	window.fbAsyncInit = function () {
+		FB.init({
+			appId: '915427361948624',
+			xfbml: true,
+			version: 'v2.11'
+		});
+		FB.AppEvents.logPageView();
 	};
-  
-	(function(d, s, id){
-	   var js, fjs = d.getElementsByTagName(s)[0];
-	   if (d.getElementById(id)) {return;}
-	   js = d.createElement(s); js.id = id;
-	   js.src = "https://connect.facebook.net/en_US/sdk.js";
-	   fjs.parentNode.insertBefore(js, fjs);
-	 }(document, 'script', 'facebook-jssdk'));
-  </script>
+
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) { return; }
+		js = d.createElement(s); js.id = id;
+		js.src = "https://connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+
 </html>
