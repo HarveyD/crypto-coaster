@@ -197,7 +197,7 @@ class OmiseGO extends Coin {
 			unToggleInfo();
 		});
 
-		Object.keys(coinDict).forEach((coin, index) => {
+		Object.keys(coinDict).reverse().forEach((coin, index) => { // Reversed because I have to prepend the coins (before the about crypto div)
 			renderCoinButton(coinDict[coin], coin, index);
 			initCoin(coinDict[coin]);
 		});
