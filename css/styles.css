@@ -120,7 +120,7 @@ html, body {
 }
 
 .footer {
-    transition: top 1s ease-in-out;
+    transition: top .75s ease-in-out;
     position: absolute;
     z-index: 20;
     height: 12.5%;
@@ -283,7 +283,7 @@ html, body {
     position: absolute;
     background-color: rgba(0, 0, 0, 0);
     top: 0;
-    transition: 1s ease-in-out background-color;
+    transition: .75s ease-in-out background-color;
     height: 100%;
     width: 100%;
     z-index: 20;

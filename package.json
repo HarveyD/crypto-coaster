@@ -1,0 +1,33 @@
+{
+  "name": "crypto-coaster",
+  "version": "1.0.0",
+  "description": "A quick little static web page that shows the famous Bitcoin mascot on his coaster ride of the price fluctuations.",
+  "main": "./js/app.js",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "socket.io-client": "^2.0.4",
+    "webpack": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "babel-loader": "^8.0.0-beta.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarveyD/crypto-coaster.git"
+  },
+  "keywords": [
+    "crypto",
+    "coaster"
+  ],
+  "author": "Harvey Delaney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HarveyD/crypto-coaster/issues"
+  },
+  "homepage": "https://github.com/HarveyD/crypto-coaster#readme"
+}
