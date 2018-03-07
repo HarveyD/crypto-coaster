@@ -473,3 +473,5 @@ CCC.convertValueToDisplay =  function(symbol,value,type,fullNumbers){
       return prefix+CCC.noExponents((valueSign*valueAbs).toPrecision(decimalsOnSmallNumbers));
     }
   };
+
+module.exports = CCC;

@@ -1,163 +1,10 @@
-class Constants {
-	static get Green() {
-		return 'rgb(74, 134, 119)';
-	}
+// Utils
+var CCC = require('./ccc-streamer-utilities.js');
+var io = require('socket.io-client');
 
-	static get Red() {
-		return 'rgb(120, 72, 61)';
-	}
-
-	static get SocketUrl() {
-		return 'https://streamer.cryptocompare.com/';
-	}
-
-	static get SocketGetArray() {
-		return [
-			'5~CCCAGG~BTC~USD', 
-			'5~CCCAGG~ETH~USD', 
-			'5~CCCAGG~LTC~USD', 
-			'5~CCCAGG~XMR~USD', 
-			'5~CCCAGG~DASH~USD',
-			'5~CCCAGG~XRP~USD',
-			'5~CCCAGG~NEO~USD',
-			'5~CCCAGG~OMG~USD',
-			'5~CCCAGG~XEM~USD'
-		];
-	}
-
-	static get UpArrow() {
-		return '<i class="fa fa-arrow-up" aria-hidden="true"></i>';
-	}
-
-	static get DownArrow() {
-		return '<i class="fa fa-arrow-down" aria-hidden="true"></i>';
-	}
-
-	static get SideArrow() {
-		return '<i class="fa fa-arrow-right" aria-hidden="true"></i>';
-	}
-
-	static get MaxRotate() {
-		return 180;
-	}
-}
-
-class Coin {
-	constructor() {
-		this.price = 0;
-		this.lastPrice = 0;
-		this.yesterdayPrice = 0;
-		this.lastUpdated = 0;
-		this.rotateValue = 90;
-	}
-
-	selectCoin() {
-		$(`#${this.buttonId}`).addClass(`${this.selectedClass}`);
-	}
-}
-
-class Bitcoin extends Coin {
-	constructor() {
-		super();
-		this.name = 'Bitcoin';
-		this.ticker = 'BTC';
-		this.hasInit = false;
-		this.buttonId = 'btc-button';
-		this.selectedClass = 'selected-btc';
-		this.imgUrl = 'assets/coasters/btc-coaster.gif';
-		this.buttonColor = '#FF9900';
-	}
-}
-
-class Ether extends Coin {
-	constructor() {
-		super();
-		this.name = 'Ether';
-		this.ticker = 'ETH';
-		this.buttonId = 'eth-button';
-		this.selectedClass = 'selected-eth';
-		this.imgUrl = 'assets/coasters/eth-coaster.gif';
-		this.buttonColor = '#516BB1';
-	}
-}
-
-class Litecoin extends Coin {
-	constructor() {
-		super();
-		this.name = 'Litecoin';
-		this.ticker = 'LTC';
-		this.buttonId = 'ltc-button';
-		this.selectedClass = 'selected-ltc';
-		this.imgUrl = 'assets/coasters/ltc-coaster.gif';
-		this.buttonColor = '#A6A9AF';
-	}
-}
-
-class Monero extends Coin {
-	constructor() {
-		super();
-		this.name = 'Monero';
-		this.ticker = 'XMR';
-		this.buttonId = 'xmr-button';
-		this.imgUrl = 'assets/coasters/xmr-coaster.gif';
-		this.buttonColor = '#ee660a';
-	}
-}
-
-class Dash extends Coin {
-	constructor() {
-		super();
-		this.name = 'Dash';
-		this.ticker = 'DASH';
-		this.buttonId = 'dash-button';
-		this.imgUrl = 'assets/coasters/dash-coaster.gif';
-		this.buttonColor = '#3779c0';
-	}
-}
-
-class Ripple extends Coin {
-	constructor() {
-		super();
-		this.name = 'Ripple';
-		this.ticker = 'XRP';
-		this.buttonId = 'xrp-button';
-		this.imgUrl = 'assets/coasters/xrp-coaster.gif';
-		this.buttonColor = '#4087b3';
-	}
-}
-
-class Neo extends Coin {
-	constructor() {
-		super();
-		this.name = 'Neo';
-		this.ticker = 'NEO';
-		this.buttonId = 'neo-button';
-		this.imgUrl = 'assets/coasters/neo-coaster.gif';
-		this.buttonColor = '#87bd47';
-	}
-}
-
-class Nem extends Coin {
-	constructor() {
-		super();
-		this.name = 'Nem';
-		this.ticker = 'XEM';
-		this.buttonId = 'xem-button';
-		this.imgUrl = 'assets/coasters/xem-coaster.gif';
-		this.buttonColor = '#5bb6ab';
-	}
-}
-
-class OmiseGO extends Coin {
-	constructor() {
-		super();
-		this.name = 'OmiseGo';
-		this.ticker = 'OMG';
-		this.buttonId = 'omg-button';
-		this.imgUrl = 'assets/coasters/omg-coaster.gif';
-		this.buttonColor = '#2355d9';
-	}
-}
+// Classes
+import { Constants } from './constants';
+import { Coin, Ether, Bitcoin, Litecoin, Monero, Dash, Ripple, Neo, Nem, OmiseGo } from './coins';
 
 (function init() {
 	// ENUM: leavingScreen, enteringScreen, inScreen;
@@ -170,7 +17,7 @@ class OmiseGO extends Coin {
 		'XRP': new Ripple(),
 		'XMR': new Monero(),
 		'DASH': new Dash(),
-		'OMG': new OmiseGO(),
+		'OMG': new OmiseGo(),
 		'XEM': new Nem(),
 		'NEO': new Neo()
 	};
