@@ -2,18 +2,29 @@
   "name": "crypto-coaster",
   "version": "1.0.0",
   "description": "A quick little static web page that shows the famous Bitcoin mascot on his coaster ride of the price fluctuations.",
-  "main": "./js/app.js",
+  "main": "./src/js/app.js",
   "dependencies": {
     "jquery": "^3.3.1",
-    "socket.io-client": "^2.0.4",
-    "webpack": "^4.0.1"
+    "socket.io-client": "^2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
     "@babel/preset-env": "^7.0.0-beta.40",
-    "babel-loader": "^8.0.0-beta.0"
+    "babel-loader": "^8.0.0-beta.0",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.1.0",
+    "image-webpack-loader": "^4.2.0",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
   },
   "scripts": {
+    "build": "webpack",
+    "dev": "webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

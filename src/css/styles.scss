@@ -1,0 +1,370 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(195, 164, 157);
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden; 
+    position: fixed;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.absolute-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading-container {
+    height: 22.5%;
+    flex-direction: column;
+    color: white;
+    background-color: rgb(195, 164, 157);
+    position: relative;
+    z-index: 10;
+    opacity: 1;
+    transform: translate(0px, 0px);
+
+    transition: all 1s ease-in-out;
+}
+
+.initial-hide {
+    opacity: 0;
+    transform: translate(0px, -100px);
+}
+
+.last-price-container {
+    display: flex;
+    flex-direction: column;
+
+    span {
+        font-size: 64px;
+    }
+
+    #price {
+        font-weight: bold;
+        width: 100%;
+        color: rgb(74, 134, 119);
+        display: inline-block;
+    }
+
+    #delta {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 24px;
+        padding-left: 16px;
+        width: 100%;
+        margin-bottom: 8px;
+
+        i {
+            padding-right: 6px;
+        }
+    }
+}
+
+.grow {
+    animation: grow-then-shrink 0.5s normal forwards ease-in-out;
+}
+
+#countdown {
+    display: inline-block;
+    animation: grow-then-shrink 1s infinite alternate;
+}
+
+#yesterday {
+    font-size: 24px;
+    padding-bottom: 6px;
+}
+ 
+.btc-coaster-container {
+    height: 65%;
+    width: 100%;
+}
+
+#coaster {
+    height: 100%;
+    transition: 1.5s ease-in-out;
+    -webkit-transition: 1.5s ease-in-out;
+    -moz-transition: 1.5s ease-in-out;
+    -o-transition: 1.5s ease-in-out;
+
+    transform: translate(-2000px, 0px) rotate(90deg);
+}
+
+.notransition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+#loading {
+    opacity: 1;
+    transition: opacity .5s ease-out;
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#loading {
+    img {
+        height: 65%;
+        width: 65%;
+    }
+}
+
+.footer {
+    transition: top .75s ease-in-out;
+    position: absolute;
+    z-index: 20;
+    height: 12.5%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+
+    .up-icon {
+        position: absolute;
+        right: 7.5%;
+        color: black;
+        animation: grow-then-shrink 2s;
+        -moz-animation: grow-then-shrink 2s infinite; 
+        -webkit-animation: grow-then-shrink 2s infinite;
+    }
+
+    button {
+        width: 100%;
+        display: inline-block;
+        font-size: 32px;
+        color: white;
+        border: none;
+        background-color: grey;
+        outline: none;
+        transition: all 0.5s ease;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        img {
+            height: 32px;
+            padding-right: 8px;
+        }
+    }
+}
+
+.footer-modal {
+	z-index: 30;
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 100%;
+	display: flex;
+    flex-direction: column;
+    background-color: white;
+    transition: top 1s ease-in-out;
+
+    .more-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.75rem;
+        color: #0000EE;
+        cursor: pointer;
+        padding-bottom: 1rem;
+
+        .fa-info-circle {
+            padding-left: .25rem;
+        }
+    }
+}
+
+.info-modal {
+    position: absolute;
+    top: 100%;
+    height: 100%;
+    width: 100%;
+    z-index: 40;
+    background-color: white;
+    transition: top ease-in-out 1s;
+    padding-left: 5%;
+    padding-right: 5%;
+    box-sizing: border-box;
+    overflow: auto;
+
+    .social {
+        margin-top: 5rem;
+        display: flex;
+        justify-content: space-around;
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+
+        a { 
+            color: inherit; 
+        } 
+    }
+
+    .body {
+        overflow-wrap: break-word;
+        margin-bottom: 2.5rem;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        h3 {
+            margin-bottom: 0;
+        }
+    }
+
+    .heading {
+        font-size: 0.75rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        background-color: rgb(30, 30, 30);
+        color: white;
+        z-index: 50;
+        width: 100%;
+        margin-left: -5%;
+
+        .fa-times {
+            position: absolute;
+            font-size: 2rem;
+            right: 1rem;
+            cursor: pointer;
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: 0;
+        height: 10%;
+        border-top: 1px solid black;
+        font-size: 1.5rem;
+    }
+}
+
+.button-row {
+    padding-top: 0.75rem;
+	width: 100%;
+	height: 10%;
+	justify-content: space-around;
+    display: flex;	
+    
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 32px;
+        width: 30%;
+        height: 100%;
+        background-color: grey;
+        color: white;
+        border-radius: 16px;
+        cursor: pointer;
+    }
+}
+
+.overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0);
+    top: 0;
+    transition: .75s ease-in-out background-color;
+    height: 100%;
+    width: 100%;
+    z-index: 20;
+    pointer-events: none;
+    cursor: pointer;
+}
+
+.toggled {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes grow-then-shrink {
+	0% { transform: none; }
+	50% { transform: scale(1.25); }
+	100% { transform: none; }
+}
+
+@media screen and (min-width: 780px) {
+    .info-modal {
+        padding-left: 25%;
+        padding-right: 25%;
+
+        .heading {
+            font-size: 1.75rem;
+            margin-left: -25%;
+
+            h1 {
+                margin-top: 0.25em;
+                margin-bottom: 0.25em;
+            }
+
+            .fa-times {
+                font-size: 2.5rem;
+                right: 2rem;
+            }
+        }
+
+        .body {
+            font-size: 1.25rem;
+        }
+
+        .social {
+            margin-top: 7.5rem;
+            font-size: 6rem;
+        }
+    }
+
+    .footer {
+        button {
+            .ticker {
+                font-size: 3rem;
+                padding-left: 0.5rem;
+            }
+
+            .logo {
+                height: 3rem;
+            }
+        }
+
+        .up-icon {
+            font-size: 3rem;
+        }
+    }
+
+    .footer-modal {
+        .more-info {
+            font-size: 2rem;
+        }
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .last-price-container {
+        span {
+            font-size: 42px;
+            color: white;
+        }
+    }
+
+    #yesterday {
+        font-size: 18px;
+        padding-bottom: 6px;
+    }
+}
