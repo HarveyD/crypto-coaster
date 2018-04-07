@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "webpack",
+    "prod": "webpack --mode=production",
     "dev": "webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
