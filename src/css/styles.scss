@@ -70,6 +70,7 @@ html, body {
 }
 
 #countdown {
+    padding-right: 0.25rem;
     display: inline-block;
     animation: grow-then-shrink 1s infinite alternate;
 }
