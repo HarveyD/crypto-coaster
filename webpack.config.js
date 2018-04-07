@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 let config = {
 	entry: './src/js/app.js',
@@ -29,13 +30,15 @@ let config = {
 			},
 			{
 				test: /\.scss$/,
-				use: [{
-						loader: "style-loader" // creates style nodes from JS strings
-				}, {
-						loader: "css-loader" // translates CSS into CommonJS
-				}, {
-						loader: "sass-loader" // compiles Sass to CSS
-				}]
+				use: ExtractTextPlugin.extract({
+					use: [ 
+						{ 
+							loader: 'css-loader',
+							options: { minimize: true }
+						}, 
+						'sass-loader'
+					]
+				})
 			}
 		]
 	},
@@ -48,8 +51,18 @@ let config = {
 			jQuery: "jquery"
 		}),
 		new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    })
+			template: 'src/index.html',
+			filename: 'index.html',
+			minify: {
+				removeAttributeQuotes: true,
+				collapseWhitespace: true,
+				html5: true,
+				minifyCSS: true,
+				removeComments: true,
+				removeEmptyAttributes: true,
+			},
+		}),
+		new ExtractTextPlugin("styles.css") /* extracts css to a separate file as opposed to inlining css */
 	]
 }
 
