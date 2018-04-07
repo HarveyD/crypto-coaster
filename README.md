@@ -1,5 +1,5 @@
 # Crypto Coaster 
-[![Build Status](https://jenkins.harveydelaney.com/job/crypto-coaster/badge/icon)](https://jenkins.harveydelaney.com/job/crypto-coaster/)
+[![Build Status](https://jenkins.harveydelaney.com/buildStatus/icon?job=crypto-coaster)](https://jenkins.harveydelaney.com/job/crypto-coaster/)
 
 ![CryptoCoaster](https://i.imgur.com/lVxWVeD.png)
 
