@@ -23,7 +23,6 @@
 	<link rel="icon" href="favicon.ico" type="image/x-icon">
 
 	<!-- CSS -->
-	<link rel="stylesheet" href="./css/styles.css">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
 	 crossorigin="anonymous">
 </head>
@@ -51,19 +50,19 @@
 	</div>
 
 	<div id="loading">
-		<img src="./assets/loading.svg" />
+		<img src=<%=require("./assets/loading.svg")%> />
 	</div>
 
 	<div class="details absolute-center">
 	</div>
 
 	<div class="btc-coaster-container absolute-center">
-		<img id="coaster" src="./assets/coasters/btc-coaster.gif" />
+		<img id="coaster" src=<%=require("./assets/coasters/btc-coaster.gif")%> />
 	</div>
 
 	<div class="footer">
 		<button id="selected-coin" style="background-color: #FF9900">
-			<img class="logo" src="./assets/coin-svg/BTC.svg"></img>
+			<img class="logo" src=<%=require("./assets/coin-svg/BTC.svg")%> />
 			<span class="ticker"> Bitcoin </span>
 			<i class="up-icon fa fa-chevron-up" aria-hidden="true"></i>
 		</button>
@@ -113,8 +112,6 @@
 		</div>
 	</div>
 </body>
-
-<script src="./dist/bundle.js"></script>
 
 <script>
 	(function (i, s, o, g, r, a, m) {

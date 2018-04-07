@@ -2,6 +2,9 @@
 var CCC = require('./ccc-streamer-utilities.js');
 var io = require('socket.io-client');
 
+// Styles
+require('../css/styles.scss');
+
 // Classes
 import { Constants } from './constants';
 import { Coin, Ether, Bitcoin, Litecoin, Monero, Dash, Ripple, Neo, Nem, OmiseGo } from './coins';
@@ -63,6 +66,8 @@ import { Coin, Ether, Bitcoin, Litecoin, Monero, Dash, Ripple, Neo, Nem, OmiseGo
 	};
 	
 	let animateInitialEntrance = () => {
+		currentCoin.hasInit = true;
+		
 		$('.heading-container').removeClass('initial-hide');
 		getIncomingRotation(currentCoin);
 		// TODO: add -webkit etc to this css jquery function
@@ -71,7 +76,6 @@ import { Coin, Ether, Bitcoin, Litecoin, Monero, Dash, Ripple, Neo, Nem, OmiseGo
 
 		$('#coaster').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', () => {
 			currentState = 'inScreen';
-			currentCoin.hasInit = true;
 		});
 	}
 
@@ -142,7 +146,7 @@ import { Coin, Ether, Bitcoin, Litecoin, Monero, Dash, Ripple, Neo, Nem, OmiseGo
 	let updateSelectedButton = (coin) => { 
 		$('#selected-coin').css('background-color', coin.buttonColor);
 		$('#selected-coin .ticker').html(coin.name);
-		$("#selected-coin .logo").attr("src", `./assets/coin-svg/${coin.ticker}.svg`);
+		$("#selected-coin .logo").attr("src", coin.logo);
 	};
 
 	let toggleMenu = function () {
