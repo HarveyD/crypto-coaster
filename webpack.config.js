@@ -22,19 +22,7 @@ let config = {
 				}
 			},
 			{
-				test: /\.(gif|png|jpe?g)$/i,
-				use: [
-				  'file-loader',
-				  {
-						loader: 'image-webpack-loader',
-						options: {
-							bypassOnDebug: true,
-						}
-				  }
-				]
-			},
-			{ // Because image-webpack-loader was distorting the loading svg
-				test: /\.(svg)$/i,
+				test: /\.(gif|png|jpe?g|svg)$/i,
 				use: [
 				  'file-loader',
 				]
