@@ -341,3 +341,7 @@ import { Coin, Ether, Bitcoin, Litecoin, Monero, Dash, Ripple, Neo, Nem, OmiseGo
 		return (1.5 * $(window).width());
 	}
 }());
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
